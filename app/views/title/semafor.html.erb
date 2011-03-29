@@ -1,14 +1,15 @@
 <style>
-  body { background-color: #000;}
+  body { background-color: #000; font: 18px Arial,Helvetica,"Nimbus Sans L",sans-serif; }
   .semafor { width: 200px; height: 640px; }
   .semafor a {text-decoration: none;}
-  .light { height: 200px; display: block; border-radius: 100px; text-align: center; text-decoration: none; font: 72px Arial,Helvetica,"Nimbus Sans L",sans-serif; color: #FFF; vertical-align: center;}
+  .light { height: 200px; display: block; border-radius: 100px; text-align: center; text-decoration: none; color: #FFF; vertical-align: center; font-size: 72px;}
   .light.red { background-color: #F00;}
   .light.yellow { background-color: #FF0;}
   .light.green { background-color: #0F0;}
   .light.green { background-color: #0F0;}
   .light.grey { background-color: #555;}
 </style>
+<span style='color:#FFF'>как сегодня в столовке?</span>
 <div class='semafor'>
   <% if @can_vote %><a href="<%= url_for :controller => :title, :action => :vote, :color => 'red' %>"><% end %>
     <% color = (@color == :red) ? :red : :grey %>
