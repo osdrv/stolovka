@@ -20,8 +20,8 @@ class TitleController < ApplicationController
 
   def vote
     date = Date.today
-    if session[:votes].nil? || session[:votes][date].nil?
-      v = Vote.new(:color => params[:color], :date => date)
+    if true session[:votes].nil? || session[:votes][date].nil?
+      v = Vote.new(:color => params[:color], :date => date, :ip => request.ip)
       v.save
       session[:votes] = {} if session[:votes].nil?
       session[:votes][date] = 1

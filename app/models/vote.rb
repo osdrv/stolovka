@@ -2,6 +2,9 @@ class Vote
   include Mongoid::Document
   field :color
   field :date, :type => Date
+  field :ip
+
+  validates_uniqueness_of :ip, :date
 
   def self.today_votes(date)
     criteria = Vote.where(:date => date)
