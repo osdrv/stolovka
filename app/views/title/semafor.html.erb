@@ -20,7 +20,7 @@
   <br/>
   <% if @can_vote %><a href="<%= url_for :controller => :title, :action => :vote, :color => 'yellow' %>"><% end %>
     <% color = (@color == :yellow) ? :yellow : :grey %>
-    <div class='light <%= color %>'><%= @votes[:yellow] %><br><span class='s18'>ничо</span></div>
+    <div class='light <%= color %>' <% if color == :yellow %>style='color:#555'<% end %>><%= @votes[:yellow] %><br><span class='s18'>ничо</span></div>
   <% if @can_vote %></a><% end %>
   <br/>
   <% if @can_vote %><a href="<%= url_for :controller => :title, :action => :vote, :color => 'green' %>"><% end %>
