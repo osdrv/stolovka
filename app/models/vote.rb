@@ -4,7 +4,7 @@ class Vote
   field :date, :type => Date
   field :ip
 
-  validates_uniqueness_of :ip, :date
+  validates_uniqueness_of :ip_date, :scope => [:ip, :date]
 
   def self.today_votes(date)
     criteria = Vote.where(:date => date)
