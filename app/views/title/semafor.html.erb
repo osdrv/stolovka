@@ -1,5 +1,6 @@
 <style>
   body { background-color: #000; font: 18px Arial,Helvetica,"Nimbus Sans L",sans-serif; }
+  .s18 { font-size: 24px;}
   .semafor { width: 200px; height: 640px; }
   .semafor a {text-decoration: none;}
   .light { height: 200px; display: block; border-radius: 100px; text-align: center; text-decoration: none; color: #FFF; vertical-align: center; font-size: 72px;}
@@ -9,20 +10,20 @@
   .light.green { background-color: #0F0;}
   .light.grey { background-color: #555;}
 </style>
-<span style='color:#FFF'>как сегодня в столовке?</span>
+<span style='color:#FFF' class='s18'>как сегодня в столовке?</span>
 <div class='semafor'>
   <% if @can_vote %><a href="<%= url_for :controller => :title, :action => :vote, :color => 'red' %>"><% end %>
     <% color = (@color == :red) ? :red : :grey %>
-    <div class='light <%= color %>'><%= @votes[:red] %></div>
+    <div class='light <%= color %>'><%= @votes[:red] %><br><span class='s18'>буэшечно</span></div>
   <% if @can_vote %></a><% end %>
   <br/>
   <% if @can_vote %><a href="<%= url_for :controller => :title, :action => :vote, :color => 'yellow' %>"><% end %>
     <% color = (@color == :yellow) ? :yellow : :grey %>
-    <div class='light <%= color %>'><%= @votes[:yellow] %></div>
+    <div class='light <%= color %>'><%= @votes[:yellow] %><br><span class='s18'>ничо</span></div>
   <% if @can_vote %></a><% end %>
   <br/>
   <% if @can_vote %><a href="<%= url_for :controller => :title, :action => :vote, :color => 'green' %>"><% end %>
     <% color = (@color == :green) ? :green : :grey %>
-    <div class='light <%= color %>'><%= @votes[:green] %></div>
+    <div class='light <%= color %>'><%= @votes[:green] %><br><span class='s18'>нештяк!</span></div>
   <% if @can_vote %></a><% end %>
 </div>
