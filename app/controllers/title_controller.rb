@@ -4,7 +4,7 @@ class TitleController < ApplicationController
     @votes = Vote.today_votes(Date.today)
     @can_vote = (session[:votes].nil? || session[:votes][date].nil?)
     Rails.logger.debug(@votes)
-    if @votes.values.length == 1
+    if @votes.values.uniq.length == 1
       @color = nil
     else
       max_votes = 0
