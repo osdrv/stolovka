@@ -10,6 +10,7 @@
   .light.green { background-color: #0F0;}
   .light.grey { background-color: #555;}
 </style>
+<script style='text/javascript'>window.setTimeout(function() { window.location.reload(false) }, 20000)</script>
 <span style='color:#FFF' class='s18'>как сегодня в столовке?</span>
 <div class='semafor'>
   <% if @can_vote %><a href="<%= url_for :controller => :title, :action => :vote, :color => 'red' %>"><% end %>
