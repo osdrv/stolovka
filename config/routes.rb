@@ -1,4 +1,6 @@
 Stolovka::Application.routes.draw do
+  resources :menus
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -50,6 +52,8 @@ Stolovka::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
+  match ':date' => 'title#semafor', :constraints => { :date => /\d{4}\-\d{2}\-\d{2}/ }
+  
   root :to => "title#semafor"
 
   # See how all your routes lay out with "rake routes"

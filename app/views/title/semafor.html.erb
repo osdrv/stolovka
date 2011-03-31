@@ -1,7 +1,8 @@
 <style>
   body { background-color: #000; font: 18px Arial,Helvetica,"Nimbus Sans L",sans-serif; }
-  .s18 { font-size: 24px;}
-  .semafor { width: 200px; height: 640px; }
+  .s18 { font-size: 24px; white-space: nowrap;}
+  .s56 { font-size: 56px; }
+  .semafor { width: 200px; height: 680px; display: block; float: left;}
   .semafor a {text-decoration: none;}
   .light { height: 200px; display: block; border-radius: 100px; text-align: center; text-decoration: none; color: #FFF; vertical-align: center; font-size: 72px;}
   .light.red { background-color: #F00;}
@@ -9,10 +10,13 @@
   .light.green { background-color: #0F0;}
   .light.green { background-color: #0F0;}
   .light.grey { background-color: #555;}
+  
+  .menu { width: 200px; height: 640px; display: block; float: left; margin-left: 200px; color: #AAA;}
+  a.pink { color: #ffc0cb;}
 </style>
 <script style='text/javascript'>window.setTimeout(function() { window.location.reload(false) }, 20000)</script>
-<span style='color:#FFF' class='s18'>как сегодня в столовке?</span>
 <div class='semafor'>
+  <span style='color:#FFF;' class='s18'>как сегодня в столовке?</span>
   <% if @can_vote %><a href="<%= url_for :controller => :title, :action => :vote, :color => 'red' %>"><% end %>
     <% color = (@color == :red) ? :red : :grey %>
     <div class='light <%= color %>'><%= @votes[:red] %><br><span class='s18'>буэшечно</span></div>
@@ -28,3 +32,27 @@
     <div class='light <%= color %>'><%= @votes[:green] %><br><span class='s18'>нештяк!</span></div>
   <% if @can_vote %></a><% end %>
 </div>
+<div class='menu'>
+  <% if !@menu.nil? %>
+    <span style='color:#FFF;' class='s18'>Меню на <%= @date %><% if @is_today %> (сегодня)<% end %></span>
+    <br/>
+    <%= render 'menus/show' %>
+    <%= link_to 'Редактировать', edit_menu_path(@menu), :class => 'pink' %>
+  <% else %>
+    <% if @today %>
+      <%= link_to 'Заполнить меню', new_menu_path, :class => 'pink' %>
+    <% end %>
+  <% end %>
+</div>
+<div style='clear:both;'>
+  <a href="<%= url_for :controller => 'title', :action => 'semafor', :date => previous_business_day(@date) %>">
+    <span class='s56'>← <% if @is_today %>вчера<% else %>предыдущий день<% end %></span>
+  </a>
+</div>
+<% if @has_tomorrow_link %>
+<div style='float:right; text-align: right; margin-top: -60px;'>
+  <a href="<%= url_for :controller => 'title', :action => 'semafor', :date => next_business_day(@date) %>">
+    <span class='s56'>следующий день →</span>
+  </a>
+</div>
+<% end %>

@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>First:</b>
+  <%= @menu.first %>
+</p>
+
+<p>
+  <b>Second:</b>
+  <%= @menu.second %>
+</p>
+
+<p>
+  <b>Salad:</b>
+  <%= @menu.salad %>
+</p>
+
+<p>
+  <b>Drink:</b>
+  <%= @menu.drink %>
+</p>
+
+
+<%= link_to 'Edit', edit_menu_path(@menu) %> |
+<%= link_to 'Back', menus_path %>
