@@ -45,8 +45,8 @@ class ConsumerController < ApplicationController
     if params[:force_post]
       oidreq.return_to_args['force_post']='x'*2048
     end
-    return_to = url_for :action => 'complete', :only_path => false
-    realm = url_for :action => 'index', :id => nil, :only_path => false
+    return_to = url_for :controller => 'consumer', :action => 'complete', :only_path => false
+    realm = url_for :controller => 'consumer', :action => 'index', :id => nil, :only_path => false
     
     if oidreq.send_redirect?(realm, return_to, params[:immediate])
       redirect_to oidreq.redirect_url(realm, return_to, params[:immediate])
@@ -57,9 +57,10 @@ class ConsumerController < ApplicationController
 
   def complete
     # FIXME - url_for some action is not necessarily the current URL.
-    current_url = url_for(:action => 'complete', :only_path => false)
-    parameters = params.reject{|k,v|request.path_parameters[k]}
+    current_url = url_for(:controller => 'consumer', :action => 'complete', :only_path => false)
+    parameters = params.reject{ |k,v| request.path_parameters[k.to_sym] }
     oidresp = consumer.complete(parameters, current_url)
+    Rails.logger.info(oidresp)
     case oidresp.status
     when OpenID::Consumer::FAILURE
       if oidresp.display_identifier
