@@ -46,13 +46,13 @@
 </div>
 <div style='clear:both;'>
   <a href="<%= url_for :controller => 'title', :action => 'semafor', :date => previous_business_day(@date) %>">
-    <span class='s56'>← <% if @is_today %>вчера<% else %>предыдущий день<% end %></span>
+    <span class='s56' style='color:#FFF;'>← <% if @is_today %>вчера<% else %>предыдущий день<% end %></span>
   </a>
 </div>
 <% if @has_tomorrow_link %>
 <div style='float:right; text-align: right; margin-top: -60px;'>
   <a href="<%= url_for :controller => 'title', :action => 'semafor', :date => next_business_day(@date) %>">
-    <span class='s56'>следующий день →</span>
+    <span class='s56' style='color:#FFF;'>следующий день →</span>
   </a>
 </div>
 <% end %>
