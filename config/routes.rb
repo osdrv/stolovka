@@ -17,6 +17,8 @@ Stolovka::Application.routes.draw do
   match 'user/:username' => 'server#user_page'
   match 'user/:username/xrds' => 'server#user_xrds'
 
+  match 'consumer' => 'consumer#index'
+
   # Allow downloading Web Service WSDL as a file with an extension
   # instead of a file named 'wsdl'
   match ':controller/service.wsdl', :action => 'wsdl'
