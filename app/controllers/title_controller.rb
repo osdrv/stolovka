@@ -4,7 +4,7 @@ class TitleController < ApplicationController
     @date = Date.parse(@date) if @date.is_a? String
     @votes = Vote.today_votes(@date)
     @can_vote = (session[:votes].nil? || session[:votes][@date.to_s].nil?)
-    if @votes.values.length == 1
+    if @votes.values.uniq.length == 1
       @color = nil
     else
       max_votes = 0
