@@ -1,0 +1,10 @@
+<% if @can_vote %><a href="<%= url_for :controller => :title, :action => :vote, :color => color %>"><% end %>
+  <% display_color = (@color == color) ? color : :grey %>
+  <div class='light <%= display_color %>'><%= @votes[color].count %><br><span class='s18'><%= color_label %></span></div>
+<% if @can_vote %></a><% end %>
+<div class='fb-user-pics'>
+  <% @votes[color].each do |v| %>
+    <%= fb_user_link(v.uid, fb_user_pic(v.uid)) %>
+  <% end %>
+</div>
+<br/>
