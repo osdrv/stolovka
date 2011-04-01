@@ -1,0 +1,20 @@
+<div class='semafor'>
+  <span style='color:#FFF;' class='s18'>как сегодня в столовке?</span>
+  <% { :red => 'буэшечно', :yellow => 'ничо', :green => 'нештяк!' }.each_pair do |color, color_label| %>
+    <%= render :partial => 'color', :locals => { :color => color, :color_label => color_label } %>
+  <% end %>
+</div>
+<div class='menu'>
+  <% if !@menu.nil? %>
+    <span style='color:#FFF;' class='s18'>Меню на <%= @date %><% if @is_today %> (сегодня)<% end %></span>
+    <br/>
+    <%= render 'menus/show' %>
+    <% if @is_today && !@user.nil? %>
+      <%= link_to 'Редактировать', edit_menu_path(@menu), :class => 'pink' %>
+    <% end %>
+  <% else %>
+    <% if @is_today %>
+      <%= link_to 'Заполнить меню', new_menu_path, :class => 'pink' %>
+    <% end %>
+  <% end %>
+</div>

@@ -2,6 +2,8 @@
   body { background-color: #000; font: 18px Arial,Helvetica,"Nimbus Sans L",sans-serif; }
   .s18 { font-size: 24px; white-space: nowrap;}
   .s56 { font-size: 56px; }
+  .s72 { font-size: 72px; }
+  .white { color: #FFF; }
   .semafor { width: 500px; height: 680px; display: block; float: left;}
   .semafor a {text-decoration: none;}
   .light { height: 200px; width: 200px; display: block; border-radius: 100px; text-align: center; text-decoration: none; color: #FFF; vertical-align: center; font-size: 72px; float: left;}
@@ -17,12 +19,13 @@
   .top_div a{ color: #5c74a9;}
   .top_div a:hover{ color: #FFF; background-color: #5c74a9;}
   .fb-user-pics { width: 300px; height: 200px; margin-left: 210px;}
+  #top-userpic { position: absolute; top: 0; right: 200px; width: 50px; height: 50px;}
 </style>
 
 <div id="fb-root"></div>
 <script>
   window.fbAsyncInit = function() {
-    FB.init({appId: '140117689389802', status: true, cookie: true,
+    FB.init({appId: '<%= @fb_config['app_id'] %>', status: true, cookie: true,
              xfbml: true});
   };
   (function() {
@@ -33,6 +36,10 @@
     e.async = true;
     document.getElementById('fb-root').appendChild(e);
   }());
+  <% if @user.nil? %>
+    FB.Event.subscribe('auth.login', function() { window.location.reload(false) })
+  <% end %>
+  FB.Event.subscribe('auth.logout', function() { window.location.reload(false) })
 </script>
 
 <div class='top_div'>
@@ -43,32 +50,21 @@
   <div id='user-data' class='top_div'>
     <%= link_to @user.name, @user.fblink %>
   </div>
+  <div id='top-userpic'><%= fb_user_link(@user.fbid, fb_user_pic(@user.fbid)) %></div>
 <% end %>
 
 <% if @is_today %>
   <script style='text/javascript'>window.setTimeout(function() { window.location.reload(false) }, 20000)</script>
 <% end %>
 
-<div class='semafor'>
-  <span style='color:#FFF;' class='s18'>как сегодня в столовке?</span>
-  <% { :red => 'буэшечно', :yellow => 'ничо', :green => 'нештяк!' }.each_pair do |color, color_label| %>
-    <%= render :partial => 'color', :locals => { :color => color, :color_label => color_label } %>
-  <% end %>
-</div>
-<div class='menu'>
-  <% if !@menu.nil? %>
-    <span style='color:#FFF;' class='s18'>Меню на <%= @date %><% if @is_today %> (сегодня)<% end %></span>
-    <br/>
-    <%= render 'menus/show' %>
-    <% if @is_today && !@user.nil? %>
-      <%= link_to 'Редактировать', edit_menu_path(@menu), :class => 'pink' %>
-    <% end %>
-  <% else %>
-    <% if @is_today %>
-      <%= link_to 'Заполнить меню', new_menu_path, :class => 'pink' %>
-    <% end %>
-  <% end %>
-</div>
+<% if !@is_weekend %>
+  <%= render 'title/semafor' %>
+<% else %>
+  <span class='s72 white'>Кажется, сегодня выходной</span>
+<% end %>
+
+
+
 <div style='clear:both;'>
   <a href="<%= url_for :controller => 'title', :action => 'semafor', :date => previous_business_day(@date) %>" style='color:#FFF;'>
     <span class='s56'>← <% if @is_today %>вчера<% else %>предыдущий день<% end %></span>

@@ -11,9 +11,13 @@ module ApplicationHelper
 
   def skip_weekends(date, inc)
     date += inc
-    while (date.wday % 7 == 0) or (date.wday % 7 == 6) do
+    while is_weekend(date) do
       date += inc
     end   
     date
+  end
+
+  def is_weekend(date)
+    (date.wday % 7 == 0) || (date.wday % 7 == 6)
   end
 end

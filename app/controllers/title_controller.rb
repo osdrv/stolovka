@@ -1,4 +1,7 @@
 class TitleController < ApplicationController
+
+  include ApplicationHelper
+
   def semafor
     @date = params[:date] || Date.today
     @date = Date.parse(@date) if @date.is_a? String
@@ -23,6 +26,8 @@ class TitleController < ApplicationController
     @is_today = (@date === Date.today)
     @user = init_user
     @can_vote = (@is_today && !@user.nil? && !Vote.user_voted?(@user.fbid, @date))
+    @fb_config = get_fb_config
+    @is_weekend = is_weekend(@date)
   end
 
   def vote
@@ -81,5 +86,9 @@ private
     end
 
     user
+  end
+
+  def get_fb_config
+    YAML::load(ERB.new(IO.read(File.join(Rails.root, 'config', 'fb.yml'))).result)[RAILS_ENV]
   end
 end
