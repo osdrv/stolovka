@@ -20,6 +20,7 @@
   .top_div a:hover{ color: #FFF; background-color: #5c74a9;}
   .fb-user-pics { width: 300px; height: 200px; margin-left: 210px;}
   #top-userpic { position: absolute; top: 0; right: 200px; width: 50px; height: 50px;}
+  #user-cmoooon { position: absolute; color: #FFF; top: 10px; right: 100px; text-align: right; background-color: #5c74a9;}
 </style>
 
 <div id="fb-root"></div>
@@ -51,6 +52,10 @@
     <%= link_to @user.name, @user.fblink %>
   </div>
   <div id='top-userpic'><%= fb_user_link(@user.fbid, fb_user_pic(@user.fbid)) %></div>
+<% else %>
+  <div id='user-cmoooon' class='top_div'>
+    Чтобы голосовать и вносить изменения в меню, нужно авторизоваться с помощью facebook →
+  </div>
 <% end %>
 
 <% if @is_today %>
